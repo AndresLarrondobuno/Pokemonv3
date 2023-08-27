@@ -1,7 +1,7 @@
 from pokemon import Pokemon
 from movimiento import Movimiento
 
-class EntrenadorPokemon:
+class Entrenador:
     '''
     Contiene las propiedades de un EntrenadorPokemon
     Contiene metodos para controlar los estados y acciones de objetos Pokemon
@@ -22,13 +22,13 @@ class EntrenadorPokemon:
         indiceCorregidoParaUbicarPokemonEnEquipo = indicePokemonEnEquipo + 1
         self._pokemonEnCombate = self._pokemons[indiceCorregidoParaUbicarPokemonEnEquipo]
 
-    
+
     def getPokemonAAtacar(self) -> Pokemon:
         pokemonAAtacar = self._oponente._pokemonEnCombate
         return pokemonAAtacar
 
 
-class Jugador(EntrenadorPokemon):
+class Jugador(Entrenador):
     def __init__(self, nombre: str, pokemons: list[Pokemon]):
         super().__init__(pokemons)
         self.nombre = nombre
@@ -36,18 +36,19 @@ class Jugador(EntrenadorPokemon):
 
     def darOrdenDeAtaque(self, pokemon: Pokemon, movimiento: Movimiento):
         pokemonAAtacar = self.getPokemonAAtacar()
-        pokemon.atacar(pokemonAAtacar, movimiento)
+        self._pokemonEnCombate.atacar(pokemonAAtacar, movimiento)
 
 
-class NPC(EntrenadorPokemon):
+class NPC(Entrenador):
     def __init__(self, pokemons: list[Pokemon]):
         super().__init__(pokemons)
         self.nombre = 'Kevin el NPC'
     
 
-    def darOrdenDeAtaque(self, pokemon: Pokemon, movimiento: Movimiento):
+    def darOrdenDeAtaque(self):
+        movimiento = None
         pokemonAAtacar = self.getPokemonAAtacar()
-        pokemon.atacar(pokemonAAtacar, movimiento)
+        self._pokemonEnCombate.atacar(pokemonAAtacar, movimiento)
     
 
     def evaluarEstadoDePokemonEnCombate(self):

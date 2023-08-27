@@ -6,6 +6,7 @@ class Movimiento:
         self.tipo = tipo
         self.potencia = potencia
         self.precision = precision
+        self.categoriaDeDano = None
     
 
     def __repr__(self) -> str:

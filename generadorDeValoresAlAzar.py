@@ -1,6 +1,6 @@
 import random
 
-class Randomizador:
+class GeneradorDeValoresAlAzar:
 
     def obtenerNumeroEntero(comienzo: int, fin: int):
         numero = random.randint(comienzo, fin)

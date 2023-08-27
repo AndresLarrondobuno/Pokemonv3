@@ -1,4 +1,4 @@
-from entrenadorPokemon import Jugador, NPC
+from entrenador import Jugador, NPC
 
 
 class Batalla:

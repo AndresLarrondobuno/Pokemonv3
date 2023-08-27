@@ -1,28 +1,37 @@
-from cargadorDeDatosDePokemons import CargadorDeDatosDePokemons
-from procesadorDeDatosDePokemons import ProcesadorDeDatosDePokemons
+import time
+from cargadorDeDatos import CargadorDeDatos
+from administradorDeBaseDeDatos import AdministradorDeBaseDeDatos
 from seleccionadorDePokemons import SeleccionadorDePokemons
-from entrenadorPokemon import Jugador, NPC
+from entrenador import Jugador, NPC
 from pokemon import Pokemon
 from batalla import Batalla
 from tipo import Tipo
 from administradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
-
-import requests
-import requests_cache
+import os, requests_cache, requests
 requests_cache.install_cache('Cache Pokemons Generacion 1')
 
-#llamo a todas las url correspondientes a los pokemons de generacion 1 y formateo los datos para su procesamiento
 '''
-listaDePokemons = CargadorDeDatosDePokemons.obtenerDatosDePokemonsDeGeneracionUno()
+administradorDeBaseDeDatos = AdministradorDeBaseDeDatos('pokemon')
+administradorDeBaseDeDatos.insertarPokemons()
+administradorDeBaseDeDatos.insertarMovimientos()
+administradorDeBaseDeDatos.crearTablaMovimientosAdquiribles()
+administradorDeBaseDeDatos.insertarCombinacionDeIdsATablaMovimientosAdquiribles(1, 8)
+'''
+idsMovimientos = dict()
+for id in range(1, 11):
+    inicio = time.time()
+    print(f'iniciando id: {id} \n')
 
-#guardo los datos de los pokemons en un objeto DataFrame, que contiene metodos para procesar los datos
-dataFramePokemons = ProcesadorDeDatosDePokemons.construirDataframePokemons(listaDePokemons)
+    idsDeMovimientos = CargadorDeDatos.cargarMovimientosAdquiriblesDe(id)
+    print(idsDeMovimientos)
+    print(f'{len(idsDeMovimientos)}')
 
-#formo los equipos
-equipoJugador = SeleccionadorDePokemons.formarEquipoPokemon(dataFramePokemons, 3)
-equipoNPC = SeleccionadorDePokemons.formarEquipoPokemon(dataFramePokemons, 3)
+    fin = time.time()
+    print(f'{fin-inicio} s de ejecucion')
+    print('\n - - - - - - - - \n')
 
-#instancio a los participantes de la batalla
+
+'''
 nombreJugador = AdministradorDeInterfazDeBatalla.pedirNombreAJugador()
 jugador, oponente = Jugador(nombreJugador, equipoJugador), NPC(equipoNPC)
 
@@ -42,7 +51,3 @@ movimiento = pokemonEnCombateDeJugador._movimientos[indiceDeMovimiento]
 
 pokemonEnCombateDeJugador.atacar(movimiento, pokemonAAtacar)
 '''
-
-datosEvolucion = CargadorDeDatosDePokemons.obtenerDatosDeEvolucion('pinsir')
-
-print(datosEvolucion)

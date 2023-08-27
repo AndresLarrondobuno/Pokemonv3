@@ -11,13 +11,17 @@ class Pokemon:
         self._tipos = tipos
         self._estadisticas = estadisticas
         self._movimientos = movimientos
-        self._puntosDeVida = estadisticas['hp']
-        self._vidaTotal = estadisticas['hp']
-        self._ataqueBase = estadisticas['attack']
-        self._defensaBase = estadisticas['defense']
-        self._velocidadBase = estadisticas['speed']
+        self._puntosDeVida = estadisticas['vida']
+        self._vidaTotal = estadisticas['vida']
+        self._ataqueBase = estadisticas['ataque']
+        self._defensaBase = estadisticas['defensa']
+        self._ataqueEspecialBase = estadisticas['ataqueEspecial']
+        self._defensaEspecialBase = estadisticas['defensaEspecial']
+        self._velocidadBase = estadisticas['velocidad']
+        self._precision = 100
+        self._evasion = 100
         self._enCombate = False
-   
+
 
     def __repr__(self) -> str:
         return self._nombre
@@ -26,6 +30,7 @@ class Pokemon:
     def atacar(self, movimiento: Movimiento, pokemonAAtacar: 'Pokemon'):
         danio = self._ataqueBase + movimiento.potencia
         pokemonAAtacar._puntosDeVida -= danio
+        return {'danio': danio, 'movimiento': movimiento}
     
 
     def evolucionar(self, evolucion: 'Pokemon'):
