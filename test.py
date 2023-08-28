@@ -4,23 +4,15 @@ conexion = sqlite3.connect('pokemons.db')
 cursor = conexion.cursor()
 
 
-diccionarioDatosPokemon = {"pikachu": {"nombre":"pikachu", 'tipo':'electrico'}, 
-                           "bulbasaur": {"nombre":"bulbasaur", 'tipo':'planta'}
-                           }
+datosPokemon = [
+{"pikachu": ["trueno", "impactrueno"]},
+{"bulbasaur": ["tacle", "latigo-cepa"]}
+]
 
 
-nombresDeColumnasPokemons = diccionarioDatosPokemon.keys()
+for datos in datosPokemon:
+    for x, y in datos.items():
+        print(x, y)
 
-nombresDeColumnas = ['nombre', 'tipo', 'ataque', 'defensa']
-tiposDeDatos = ['TEXT', 'TEXT', 'INTEGER', 'INTEGER']
-camposParaConsulta = zip(nombresDeColumnas, tiposDeDatos)
-
-camposParaConsultaFormateados = []
-for nombre, tipoDeDato in camposParaConsulta:
-    campo = f'{nombre} {tipoDeDato}'
-    camposParaConsultaFormateados.append(campo)
-
-camposParaConsultaFormateados = ', '.join(camposParaConsultaFormateados)
-
-print(camposParaConsultaFormateados)
-
+lista = [1,2,3,4]
+print(lista[1:2])

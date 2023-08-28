@@ -2,6 +2,7 @@ import pandas as pd
 from generadorDeValoresAlAzar import GeneradorDeValoresAlAzar
 from cargadorDeDatos import CargadorDeDatos
 from formateadorDeDatos import FormateadorDeDatos
+from pokemon import Pokemon
 import sqlite3
 import time
 
@@ -53,7 +54,7 @@ class AdministradorDeBaseDeDatos:
 
     def insertarMovimientos(self):
         inicio = time.time()
-        for id in range(1, 10):
+        for id in range(1, 250):
             datosMovimiento = CargadorDeDatos.cargarDatosDeMovimiento(id)
             datosDeMovimientoFormateados = FormateadorDeDatos.formatearDatosDeMovimiento(datosMovimiento)
             tiposDeDatos = ['TEXT', 'INTEGER', 'TEXT', 'INTEGER']
@@ -69,7 +70,7 @@ class AdministradorDeBaseDeDatos:
 
     def insertarPokemons(self):
         inicio = time.time()
-        for id in range(1, 10):
+        for id in range(1, 152):
             datosPokemon = CargadorDeDatos.cargarDatosDePokemon(id)
             datosPokemonFormateados = FormateadorDeDatos.formatearDatosDePokemon(datosPokemon)
             tiposDeDatos = ['TEXT', 'TEXT', 'TEXT', 'INTEGER', 'INTEGER', 'INTEGER', 'INTEGER', 'INTEGER', 'INTEGER']
@@ -85,8 +86,10 @@ class AdministradorDeBaseDeDatos:
     
 
     def crearTablaMovimientosAdquiribles(self):
-        '''adaptar metodo para que utilice crearTabla, para esto necesito un metodo que facilite formatear la consulta de forma que
-        incluya a las referencias y otro que haga lo mismo con las restricciones'''
+        '''
+        no pude adaptar metodo para que utilice crearTabla, para esto necesito un metodo que facilite formatear la consulta de forma que
+        incluya a las referencias y otro que haga lo mismo con las restricciones
+        '''
 
         consulta = f'''CREATE TABLE IF NOT EXISTS movimientos_adquiribles (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -102,6 +105,77 @@ class AdministradorDeBaseDeDatos:
     def insertarCombinacionDeIdsATablaMovimientosAdquiribles(self, idPokemon: int, idMovimiento: int):
         valores = {'idPokemon': idPokemon, 'idMovimiento': idMovimiento}
         self.insertarFila('movimientos_adquiribles', valores)
+    
+
+    def insertarFilasAMovimientosAdquiribles(self):
+        movimientosAdquiribles = [CargadorDeDatos.cargarMovimientosAdquiriblesDe(id) for id in range(1, 152)]
+        for datos in movimientosAdquiribles:
+            for nombreDePokemon, nombresDeMovimientos in datos.items():
+                idPokemon = self.obtenerIdDePokemonPorNombre(nombreDePokemon)
+                for nombreDeMovimiento in nombresDeMovimientos:
+                    idMovimiento = self.obtenerIdDeMovimientoPorNombre(nombreDeMovimiento)
+                    #if idPokemon and idMovimiento:
+                    self.insertarCombinacionDeIdsATablaMovimientosAdquiribles(idPokemon, idMovimiento)
+
+
+    def obtenerIdDeMovimientoPorNombre(self, nombre: str):
+        consulta = f'''SELECT id FROM movimientos WHERE nombre = '{nombre}'
+        '''
+        self.ejecutarConsulta(consulta)
+        try:
+            return self.cursor.fetchone()
+        except TypeError:
+            return None
+
+    
+
+    def obtenerIdDePokemonPorNombre(self, nombre: str):
+        consulta = f'''SELECT id FROM pokemons WHERE nombre = '{nombre}'
+        '''
+        self.ejecutarConsulta(consulta)
+        try:
+            return self.cursor.fetchone()[0]
+        except TypeError:
+            return None
+    
+
+    def obtenerDatosDeMovimientosDePokemon(self, id: int):
+        consulta = f''' SELECT * FROM movimientos WHERE id IN
+        (SELECT movimiento_id FROM movimientos_adquiribles WHERE pokemon_id IN
+        (SELECT id FROM pokemons WHERE id='{id}'))
+        '''
+        self.ejecutarConsulta(consulta)
+        return self.cursor.fetchall()
+    
+
+    def obtenerEquipoPokemon(self, tamanoDeEquipo: int) -> list[Pokemon]:
+        datosPokemons = [self.obtenerDatosDePokemonPorId(id) for id in idsPokemons]
+        idsPokemons = [datos[0][0] for datos in datosPokemons]
+        datosMovimientos = [self.obtenerDatosDeMovimientosDePokemon(id) for id in idsPokemons]
+        datosMovimientos = [GeneradorDeValoresAlAzar.obtenerMuestra(datosMovimientos, 4) for x in range(tamanoDeEquipo)]
+        print(datosMovimientos)
+
+        nombre = datosPokemons[1]
+        tipos = [datosPokemons[2], datosPokemons[3]]
+        movimientos = []
+        estadisticas = [datos[0][-1:-6] for datos in datosPokemons]
+        pokemon = Pokemon(nombre, tipos, movimientos, estadisticas)
+        return
+
+
+    def obtenerDatosDePokemonPorId(self, id: int) -> tuple:
+        consulta = f'''SELECT * FROM pokemons WHERE id = {id}'''
+        self.ejecutarConsulta(consulta)
+        resultado = self.cursor.fetchall()
+        return resultado
+    
+
+    def obtenerDatosDeMovimientoPorId(self, id: int) -> tuple:
+        consulta = f'''SELECT * FROM movimientos WHERE id = {id}'''
+        self.ejecutarConsulta(consulta)
+        resultado = self.cursor.fetchall()
+        return resultado
+    
 
 
 

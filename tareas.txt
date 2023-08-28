@@ -1,9 +1,13 @@
-* significa q no estoy seguro
 
 
+TAREAS A REALIZAR:
 terminar logica de batalla
 cachear las respuestas faltantes
+
+
+IDEAS:
 *hacer que pokemonConEvolucion herede de Pokemon
+
 
 
 ///

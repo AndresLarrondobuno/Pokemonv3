@@ -10,26 +10,15 @@ from administradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
 import os, requests_cache, requests
 requests_cache.install_cache('Cache Pokemons Generacion 1')
 
-'''
 administradorDeBaseDeDatos = AdministradorDeBaseDeDatos('pokemon')
+'''
 administradorDeBaseDeDatos.insertarPokemons()
 administradorDeBaseDeDatos.insertarMovimientos()
 administradorDeBaseDeDatos.crearTablaMovimientosAdquiribles()
-administradorDeBaseDeDatos.insertarCombinacionDeIdsATablaMovimientosAdquiribles(1, 8)
+administradorDeBaseDeDatos.insertarFilasAMovimientosAdquiribles()
 '''
-idsMovimientos = dict()
-for id in range(1, 11):
-    inicio = time.time()
-    print(f'iniciando id: {id} \n')
 
-    idsDeMovimientos = CargadorDeDatos.cargarMovimientosAdquiriblesDe(id)
-    print(idsDeMovimientos)
-    print(f'{len(idsDeMovimientos)}')
-
-    fin = time.time()
-    print(f'{fin-inicio} s de ejecucion')
-    print('\n - - - - - - - - \n')
-
+equipo = administradorDeBaseDeDatos.obtenerEquipoPokemon(3)
 
 '''
 nombreJugador = AdministradorDeInterfazDeBatalla.pedirNombreAJugador()

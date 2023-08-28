@@ -11,7 +11,7 @@ class SeleccionadorDePokemons:
     2)Forma los equipos para los participantes de la batalla
     '''
 
-    def obtenerEquipoPokemon(dataFrameEquipoPokemon: pd.DataFrame) -> list[Pokemon]:
+    def obtenerEquipoPokemon() -> list[Pokemon]:
         equipoPokemon = []
         for datosPokemon in dataFrameEquipoPokemon.itertuples():
             pokemon = SeleccionadorDePokemons.obtenerPokemon(datosPokemon)
@@ -20,11 +20,11 @@ class SeleccionadorDePokemons:
         return equipoPokemon
 
 
-    def obtenerPokemon(datosPokemon) -> Pokemon: #el input es un objeto namedtuple
-        nombre = datosPokemon.nombre
-        tipos = datosPokemon.tipos
-        movimientos = SeleccionadorDePokemons.obtenerMovimientos(datosPokemon.movimientos)
-        estadisticas = datosPokemon.estadisticas
+    def obtenerPokemon(datosPokemon) -> Pokemon: #el input es el objeto devuelvo por el query
+        nombre = ''
+        tipos = ''
+        movimientos = ''
+        estadisticas = ''
 
         pokemon = Pokemon(nombre=nombre,
                           tipos=tipos,

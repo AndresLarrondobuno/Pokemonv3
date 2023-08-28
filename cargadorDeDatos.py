@@ -60,21 +60,22 @@ class CargadorDeDatos:
 
         datosPokemon = respuesta.json()
         datosMovimientos = datosPokemon['moves']
-        idsDeMovimientosAdquiribles = []
+        nombreDePokemon = datosPokemon['name']
+        movimientosAdquiribles = {nombreDePokemon:[]}
 
         for datosMovimiento in datosMovimientos:
             url = datosMovimiento['move']['url']
             datosMovimiento = requests.get(url).json()
             esPrevioAGeneracionCuatro = datosMovimiento['generation']['name'] in ['generation-i' or 'generation-ii' or 'generation-iii']
             if esPrevioAGeneracionCuatro:
-                idMovimiento = datosMovimiento['id']
-                idsDeMovimientosAdquiribles.append(idMovimiento)
-                print(f'id: {idMovimiento}')
+                nombreDeMovimiento = datosMovimiento['name']
+                movimientosAdquiribles[nombreDePokemon].append(nombreDeMovimiento)
+                #print(f'movimiento: {nombreDeMovimiento}')
             else:
-                idMovimiento = datosMovimiento['id']
-                print(f'id: {idMovimiento} -> movimiento de generacion IV en adelante')
+                nombreDeMovimiento = datosMovimiento['name']
+                #print(f'movimiento: {nombreDeMovimiento} -> movimiento de generacion IV en adelante')
 
-        return idsDeMovimientosAdquiribles
+        return movimientosAdquiribles
 
 
     def a(datosPokemon: dict):
