@@ -15,8 +15,8 @@ class Pokemon:
         self._vidaTotal = estadisticas['vida']
         self._ataqueBase = estadisticas['ataque']
         self._defensaBase = estadisticas['defensa']
-        self._ataqueEspecialBase = estadisticas['ataqueEspecial']
-        self._defensaEspecialBase = estadisticas['defensaEspecial']
+        self._ataqueEspecialBase = estadisticas['ataque-especial']
+        self._defensaEspecialBase = estadisticas['defensa-especial']
         self._velocidadBase = estadisticas['velocidad']
         self._precision = 100
         self._evasion = 100

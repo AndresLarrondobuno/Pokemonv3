@@ -3,10 +3,10 @@ import os
 class FormateadorDeDatos:
 
     @staticmethod
-    def formatearDatosDePokemon(datosPokemon: dict) -> dict:
+    def formatearDatosDePokemonParaInsercionABaseDeDatos(datosPokemon: dict) -> dict:
         datosFormateados = dict()
         datosDeTiposFormateados = FormateadorDeDatos.formatearDatosDeTipos(datosPokemon['types'])
-        datosDeEstadisticasFormateados = FormateadorDeDatos.formatearDatosDeEstadisticas(datosPokemon['stats'])
+        datosDeEstadisticasFormateados = FormateadorDeDatos.formatearDatosDeEstadisticasParaInsercionABaseDeDatos(datosPokemon['stats'])
 
         datosFormateados['nombre'] = datosPokemon['name']
         datosFormateados['tipoPrincipal'] = datosDeTiposFormateados['tipoPrincipal']
@@ -21,17 +21,18 @@ class FormateadorDeDatos:
 
     
     @staticmethod
-    def formatearDatosDeMovimiento(datosMovimiento: dict) -> dict:
+    def formatearDatosDeMovimientoParaInsercionABaseDeDatos(datosMovimiento: dict) -> dict:
         datosFormateados = dict()
         datosFormateados['nombre'] = datosMovimiento['name']
+        datosFormateados['potencia'] = datosMovimiento['power']
         datosFormateados['precision'] = datosMovimiento['accuracy']
         datosFormateados['tipo'] = datosMovimiento['type']['name']
-        datosFormateados['dano'] = datosMovimiento['power']
+
         return datosFormateados
     
 
     @staticmethod
-    def formatearDatosDeEstadisticas(datosEstadisticas: list) -> dict:
+    def formatearDatosDeEstadisticasParaInsercionABaseDeDatos(datosEstadisticas: list) -> dict:
         datosFormateados = dict()
         datosFormateados['vida'] = datosEstadisticas[0]['base_stat']
         datosFormateados['ataque'] = datosEstadisticas[1]['base_stat']
@@ -54,7 +55,7 @@ class FormateadorDeDatos:
 
 
     @staticmethod
-    def formatearUrl(url: str, metodoDeIdentificacion: int|str) -> str:
+    def formatearUrlParaConsumirRecursoDeAPI(url: str, metodoDeIdentificacion: int|str) -> str:
         if isinstance(metodoDeIdentificacion, int):
             url = os.path.join(url, str(metodoDeIdentificacion))
         elif isinstance(metodoDeIdentificacion, str):
@@ -78,6 +79,7 @@ class FormateadorDeDatos:
         return camposParaConsultaFormateados
 
 
+    '''
     @staticmethod
     def homogeneizarTiposDeDatosDeEslabones(eslabones: list[dict,list]|list[dict]) -> list[list]:
         eslabonesHomogeneizados = []
@@ -86,5 +88,6 @@ class FormateadorDeDatos:
                 eslabon = [eslabon]
             eslabonesHomogeneizados.append(eslabon)
         return eslabonesHomogeneizados
+    '''
 
 

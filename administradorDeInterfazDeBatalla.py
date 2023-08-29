@@ -9,20 +9,17 @@ class AdministradorDeInterfazDeBatalla:
 
 
     def anunciarTurno(turno: int):
-        print(f'Turno numero: {turno}')
-        print()
+        print(f'Turno numero: {turno}\n')
     
 
     def pedirEleccionDeMovimiento(pokemon: Pokemon):
-        eleccion = int(input(f'Elegi el movimiento ingresando su indice: '))
-        print()
+        eleccion = int(input(f'Elegi el movimiento ingresando su indice: \n'))
         return eleccion - 1
 
 
     def mostrarMovimientos(pokemon: Pokemon):
         for indice, movimiento in enumerate(pokemon._movimientos):
-            print(f'{indice + 1}) {movimiento.nombre} | potencia: {movimiento.potencia} | precision: {movimiento.precision}')
-        print()
+            print(f'{indice + 1}) {movimiento.nombre} | potencia: {movimiento.potencia} | precision: {movimiento.precision} \n')
 
 
     def pedirNombreAJugador():

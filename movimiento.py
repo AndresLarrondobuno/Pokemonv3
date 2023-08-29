@@ -1,7 +1,7 @@
 from tipo import Tipo
 
 class Movimiento:
-    def __init__(self, nombre: str, tipo: Tipo, potencia: int, precision: int):
+    def __init__(self, nombre: str, potencia: int, precision: int, tipo: Tipo):
         self.nombre = nombre
         self.tipo = tipo
         self.potencia = potencia
