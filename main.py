@@ -8,7 +8,7 @@ from batalla import Batalla
 from tipo import Tipo
 from administradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
 import os, requests_cache, requests
-requests_cache.install_cache('Cache Pokemons Generacion 1')
+#requests_cache.install_cache('Cache Pokemons Generacion 1')
 
 administradorDeBaseDeDatos = AdministradorDeBaseDeDatos('pokemon')
 '''
