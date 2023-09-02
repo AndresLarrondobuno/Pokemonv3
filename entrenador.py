@@ -1,5 +1,6 @@
-from pokemon import Pokemon
-from movimiento import Movimiento
+from Pokemon import Pokemon
+from Movimiento import Movimiento
+from GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
 
 class Entrenador:
     '''
@@ -29,30 +30,26 @@ class Entrenador:
 
 
 class Jugador(Entrenador):
-    def __init__(self, nombre: str, pokemons: list[Pokemon]):
+
+    def __init__(self, pokemons: list[Pokemon], nombre: str = 'Ash'):
         super().__init__(pokemons)
         self.nombre = nombre
     
 
-    def darOrdenDeAtaque(self, pokemon: Pokemon, movimiento: Movimiento):
+    def darOrdenDeAtaque(self, movimiento: Movimiento):
         pokemonAAtacar = self.getPokemonAAtacar()
-        self._pokemonEnCombate.atacar(pokemonAAtacar, movimiento)
+        dano = self._pokemonEnCombate.atacar(pokemonAAtacar, movimiento)
+        return dano
 
 
 class NPC(Entrenador):
-    def __init__(self, pokemons: list[Pokemon]):
+
+    def __init__(self, pokemons: list[Pokemon], nombre = 'Kevin el NPC'):
         super().__init__(pokemons)
-        self.nombre = 'Kevin el NPC'
+        self.nombre = nombre
     
 
-    def darOrdenDeAtaque(self):
-        movimiento = None
+    def darOrdenDeAtaque(self, movimiento: Movimiento):
         pokemonAAtacar = self.getPokemonAAtacar()
-        self._pokemonEnCombate.atacar(pokemonAAtacar, movimiento)
-    
-
-    def evaluarEstadoDePokemonEnCombate(self):
-        if self._pokemonEnCombate._puntosDeVida <= 0:
-            return 'no puede pelear'
-        else:
-            return 'puede pelear'
+        dano = self._pokemonEnCombate.atacar(pokemonAAtacar, movimiento)
+        return dano

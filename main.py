@@ -1,44 +1,40 @@
-from cargadorDeDatos import CargadorDeDatos
-from administradorDeBaseDeDatos import AdministradorDeBaseDeDatos
-from seleccionadorDePokemons import SeleccionadorDePokemons
-from entrenador import Jugador, NPC
-from pokemon import Pokemon
-from batalla import Batalla
-from tipo import Tipo
-from administradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
-import os, requests_cache, requests
-requests_cache.install_cache('Cache Pokemons Generacion 1')
+from SeleccionadorDePokemons import SeleccionadorDePokemons
+from AdministradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
+from Entrenador import Jugador, NPC
+from Batalla import Batalla
+from GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
 
-administradorDeBaseDeDatos = AdministradorDeBaseDeDatos('pokemon')
+seleccionadorDePokemons = SeleccionadorDePokemons()
+equipoJugador = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
+equipoNPC = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
 
-'''
-#INSERCIONES A DB
-administradorDeBaseDeDatos.insertarPokemons()
-administradorDeBaseDeDatos.insertarMovimientos()
-administradorDeBaseDeDatos.crearTablaMovimientosAdquiribles()
-administradorDeBaseDeDatos.insertarFilasAMovimientosAdquiribles()
-'''
-
-equipo = administradorDeBaseDeDatos.obtenerEquipoPokemon(3)
-print(equipo)
-
-
-'''
-nombreJugador = AdministradorDeInterfazDeBatalla.pedirNombreAJugador()
+#instancio al jugador y al npc
+jugador = Jugador(equipoJugador)
+entrenadorNPC = NPC(equipoNPC)
 
 #instancio la batalla
-batalla = Batalla(jugador, oponente)
+batalla = Batalla(jugador, entrenadorNPC)
 
-#simulo un turno entero
+administradorDeInterfazDeBatalla = AdministradorDeInterfazDeBatalla()
+
+### simulo un turno entero ###
+
+#ataque
 pokemonEnCombateDeJugador = batalla._jugador._pokemonEnCombate
 
 pokemonAAtacar = jugador.getPokemonAAtacar()
 
-AdministradorDeInterfazDeBatalla.mostrarMovimientos(pokemonEnCombateDeJugador)
-
-indiceDeMovimiento = AdministradorDeInterfazDeBatalla.pedirEleccionDeMovimiento(pokemonEnCombateDeJugador)
+indiceDeMovimiento = administradorDeInterfazDeBatalla.pedirEleccionDeMovimiento(pokemonEnCombateDeJugador)
 
 movimiento = pokemonEnCombateDeJugador._movimientos[indiceDeMovimiento]
 
-pokemonEnCombateDeJugador.atacar(movimiento, pokemonAAtacar)
-'''
+danoCausado = jugador.darOrdenDeAtaque(movimiento)
+
+administradorDeInterfazDeBatalla.anunciarJugada(jugador, movimiento, danoCausado)
+
+#respuesta
+movimiento = GeneradorDeValoresAlAzar.obtenerElemento(entrenadorNPC._pokemonEnCombate._movimientos)
+
+danoCausado = entrenadorNPC.darOrdenDeAtaque(movimiento)
+
+administradorDeInterfazDeBatalla.anunciarJugada(entrenadorNPC, movimiento, danoCausado)

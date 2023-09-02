@@ -1,5 +1,5 @@
-from movimiento import Movimiento
-from tipo import Tipo
+from Movimiento import Movimiento
+from Tipo import Tipo
 
 class Pokemon:
     '''
@@ -27,11 +27,18 @@ class Pokemon:
         return self._nombre
 
 
-    def atacar(self, movimiento: Movimiento, pokemonAAtacar: 'Pokemon'):
-        danio = self._ataqueBase + movimiento.potencia
+    def atacar(self, pokemonAAtacar: 'Pokemon', movimiento: Movimiento):
+        if movimiento.potencia:
+            danio = self._ataqueBase + movimiento.potencia - pokemonAAtacar._defensaBase//2
+        else:
+            return 0
         pokemonAAtacar._puntosDeVida -= danio
-        return {'danio': danio, 'movimiento': movimiento}
-    
+        return danio
+
+
+    def puedePelear(self):
+        return True if self._puntosDeVida > 0 else False
+
 
     def evolucionar(self, evolucion: 'Pokemon'):
         self._nombre = evolucion._nombre

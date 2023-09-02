@@ -5,6 +5,7 @@ terminar logica de batalla
 cachear las respuestas faltantes
 
 
+
 IDEAS:
 *hacer que pokemonConEvolucion herede de Pokemon
 

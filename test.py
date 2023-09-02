@@ -1,7 +1,7 @@
-import random
+import os.path
+import sys
 
 
-datosPokemon = [
-{"pikachu": ["trueno", "impactrueno"]},
-{"bulbasaur": ["tacle", "latigo-cepa"]}
-]
+sys.path.append('prueba.py')
+for path in sys.path:
+    print(path)

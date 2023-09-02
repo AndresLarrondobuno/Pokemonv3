@@ -1,12 +1,12 @@
 import os
 
-class FormateadorDeDatos:
+class FormateadorDeDatosParaBaseDeDatos:
 
     @staticmethod
-    def formatearDatosDePokemonParaInsercionABaseDeDatos(datosPokemon: dict) -> dict:
+    def formatearDatosDePokemon(datosPokemon: dict) -> dict:
         datosFormateados = dict()
-        datosDeTiposFormateados = FormateadorDeDatos.formatearDatosDeTipos(datosPokemon['types'])
-        datosDeEstadisticasFormateados = FormateadorDeDatos.formatearDatosDeEstadisticasParaInsercionABaseDeDatos(datosPokemon['stats'])
+        datosDeTiposFormateados = FormateadorDeDatosParaBaseDeDatos.formatearDatosDeTipos(datosPokemon['types'])
+        datosDeEstadisticasFormateados = FormateadorDeDatosParaBaseDeDatos.formatearDatosDeEstadisticas(datosPokemon['stats'])
 
         datosFormateados['nombre'] = datosPokemon['name']
         datosFormateados['tipoPrincipal'] = datosDeTiposFormateados['tipoPrincipal']
@@ -21,7 +21,7 @@ class FormateadorDeDatos:
 
     
     @staticmethod
-    def formatearDatosDeMovimientoParaInsercionABaseDeDatos(datosMovimiento: dict) -> dict:
+    def formatearDatosDeMovimiento(datosMovimiento: dict) -> dict:
         datosFormateados = dict()
         datosFormateados['nombre'] = datosMovimiento['name']
         datosFormateados['potencia'] = datosMovimiento['power']
@@ -32,7 +32,7 @@ class FormateadorDeDatos:
     
 
     @staticmethod
-    def formatearDatosDeEstadisticasParaInsercionABaseDeDatos(datosEstadisticas: list) -> dict:
+    def formatearDatosDeEstadisticas(datosEstadisticas: list) -> dict:
         datosFormateados = dict()
         datosFormateados['vida'] = datosEstadisticas[0]['base_stat']
         datosFormateados['ataque'] = datosEstadisticas[1]['base_stat']
@@ -41,7 +41,7 @@ class FormateadorDeDatos:
         datosFormateados['defensaEspecial'] = datosEstadisticas[4]['base_stat']
         datosFormateados['velocidad'] = datosEstadisticas[5]['base_stat']
         return datosFormateados
-    
+
 
     @staticmethod
     def formatearDatosDeTipos(datosTipos: list) -> dict:
@@ -53,16 +53,6 @@ class FormateadorDeDatos:
             datosFormateados['tipoSecundario'] = None
         return datosFormateados
 
-
-    @staticmethod
-    def formatearUrlParaConsumirRecursoDeAPI(url: str, metodoDeIdentificacion: int|str) -> str:
-        if isinstance(metodoDeIdentificacion, int):
-            url = os.path.join(url, str(metodoDeIdentificacion))
-        elif isinstance(metodoDeIdentificacion, str):
-            url = os.path.join(url, metodoDeIdentificacion)
-        else:
-            raise ValueError("El argumento debe ser un ID numérico o un nombre de movimiento")
-        return url
 
 
     @staticmethod
