@@ -22,8 +22,6 @@ administradorDeInterfazDeBatalla = AdministradorDeInterfazDeBatalla()
 #ataque
 pokemonEnCombateDeJugador = batalla._jugador._pokemonEnCombate
 
-pokemonAAtacar = jugador.getPokemonAAtacar()
-
 indiceDeMovimiento = administradorDeInterfazDeBatalla.pedirEleccionDeMovimiento(pokemonEnCombateDeJugador)
 
 movimiento = pokemonEnCombateDeJugador._movimientos[indiceDeMovimiento]

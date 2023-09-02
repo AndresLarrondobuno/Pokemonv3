@@ -1,2 +1,3 @@
 /__pycache__/
-/BaseDeDatos
+BaseDeDatos/pokemon.db
+BaseDeDatos/CachePokemonsGeneracionUno.sqlite
