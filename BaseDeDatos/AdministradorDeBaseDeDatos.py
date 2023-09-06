@@ -1,6 +1,6 @@
 from CargadorDeDatos import CargadorDeDatos
-from FormateadorDeDatosParaBaseDeDatos import FormateadorDeDatosParaBaseDeDatos
-from FormateadorDeStrings import FormateadorDeStrings
+from clasesAuxiliares.FormateadorDeDatosParaBaseDeDatos import FormateadorDeDatosParaBaseDeDatos
+from clasesAuxiliares.FormateadorDeStrings import FormateadorDeStrings
 import sqlite3
 import time
 

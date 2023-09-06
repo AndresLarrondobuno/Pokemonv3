@@ -1,5 +1,5 @@
 from BaseDeDatos.AdministradorDeBaseDeDatos import AdministradorDeBaseDeDatos
-from GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
+from clasesAuxiliares.GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
 from Pokemon import Pokemon
 from Movimiento import Movimiento
 

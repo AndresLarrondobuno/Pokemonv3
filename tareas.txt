@@ -1,5 +1,3 @@
-
-
 TAREAS A REALIZAR:
 terminar logica de batalla
 cachear las respuestas faltantes
@@ -12,5 +10,3 @@ IDEAS:
 
 
 ///
-
-de momento solo utilizo los pokemons de gen1 para testear el flujo y procesamiento de los datos de la API

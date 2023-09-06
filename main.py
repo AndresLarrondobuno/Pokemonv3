@@ -1,38 +1,29 @@
 from SeleccionadorDePokemons import SeleccionadorDePokemons
-from AdministradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
-from Entrenador import Jugador, NPC
+from Entrenador import Entrenador
 from Batalla import Batalla
-from GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
+from Jugada import Jugada
 
 seleccionadorDePokemons = SeleccionadorDePokemons()
-equipoJugador = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
-equipoNPC = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
+equipoJugadorUno = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
+equipoJugadorDos = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
 
-#instancio al jugador y al npc
-jugador = Jugador(equipoJugador)
-entrenadorNPC = NPC(equipoNPC)
+jugadorUno = Entrenador('elKevin96', equipoJugadorUno)
+jugadorDos = Entrenador('Ash', equipoJugadorDos)
+batalla = Batalla(jugadorUno, jugadorDos) 
 
-#instancio la batalla
-batalla = Batalla(jugador, entrenadorNPC)
+administradorDeInterfazDeBatalla = batalla._administradorDeInterfazDeBatalla 
+eleccionDeJugada = administradorDeInterfazDeBatalla.ofrecerEleccionDeJugada()
 
-administradorDeInterfazDeBatalla = AdministradorDeInterfazDeBatalla()
+jugadaDeJugadorUno: Jugada = batalla.obtenerJugada(batalla._jugadorUno, eleccionDeJugada)
 
-### simulo un turno entero ###
+batalla.stashearJugada(jugadaDeJugadorUno) 
 
-#ataque
-pokemonEnCombateDeJugador = batalla._jugador._pokemonEnCombate
+eleccionDeJugada = administradorDeInterfazDeBatalla.ofrecerEleccionDeJugada()
 
-indiceDeMovimiento = administradorDeInterfazDeBatalla.pedirEleccionDeMovimiento(pokemonEnCombateDeJugador)
+jugadaDeJugadorDos: Jugada = batalla.obtenerJugada(batalla._jugadorDos, eleccionDeJugada)
 
-movimiento = pokemonEnCombateDeJugador._movimientos[indiceDeMovimiento]
+batalla.stashearJugada(jugadaDeJugadorDos)
 
-danoCausado = jugador.darOrdenDeAtaque(movimiento)
+jugadasOrdenadas = batalla.obtenerJugadasOrdenadas(batalla._jugadasAEjecutar)
 
-administradorDeInterfazDeBatalla.anunciarJugada(jugador, movimiento, danoCausado)
-
-#respuesta
-movimiento = GeneradorDeValoresAlAzar.obtenerElemento(entrenadorNPC._pokemonEnCombate._movimientos)
-
-danoCausado = entrenadorNPC.darOrdenDeAtaque(movimiento)
-
-administradorDeInterfazDeBatalla.anunciarJugada(entrenadorNPC, movimiento, danoCausado)
+batalla.ejecutarJugadas(jugadasOrdenadas)

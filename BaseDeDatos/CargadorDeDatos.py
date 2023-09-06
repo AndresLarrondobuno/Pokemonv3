@@ -1,7 +1,7 @@
 import sys
-from GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
-from FormateadorDeDatosParaBaseDeDatos import FormateadorDeDatosParaBaseDeDatos
-from FormateadorDeStrings import FormateadorDeStrings
+from clasesAuxiliares.GeneradorDeValoresAlAzar import GeneradorDeValoresAlAzar
+from clasesAuxiliares.FormateadorDeDatosParaBaseDeDatos import FormateadorDeDatosParaBaseDeDatos
+from clasesAuxiliares.FormateadorDeStrings import FormateadorDeStrings
 import requests
 
 
