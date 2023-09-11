@@ -1,11 +1,11 @@
-from SeleccionadorDePokemons import SeleccionadorDePokemons
+from GeneradorDeEquipos import GeneradorDeEquipos
 from Entrenador import Entrenador
 from Batalla import Batalla
 from Jugada import Jugada
 
-seleccionadorDePokemons = SeleccionadorDePokemons()
-equipoJugadorUno = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
-equipoJugadorDos = seleccionadorDePokemons.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
+generadorDeEquipos = GeneradorDeEquipos()
+equipoJugadorUno = generadorDeEquipos.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
+equipoJugadorDos = generadorDeEquipos.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
 
 jugadorUno = Entrenador('elKevin96', equipoJugadorUno)
 jugadorDos = Entrenador('Ash', equipoJugadorDos)

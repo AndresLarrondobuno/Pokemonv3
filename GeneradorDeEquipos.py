@@ -4,7 +4,7 @@ from Pokemon import Pokemon
 from Movimiento import Movimiento
 
 
-class SeleccionadorDePokemons:
+class GeneradorDeEquipos:
     '''
     1)Construye las intancias de pokemons en base a la informacion que AdministradorDeBD obtiene de la base de datos
     2)Forma los equipos para los participantes de la batalla
