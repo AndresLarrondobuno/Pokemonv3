@@ -1,10 +1,9 @@
 from Entrenador import Entrenador
-from AdministradorDeInterfazDeBatalla import AdministradorDeInterfazDeBatalla
+from Evento import AdministradorDeInterfazDeBatalla
 from Jugada import Jugada, JugadaDeAtaque, JugadaDeCambioDePokemon, JugadaDeUsoDeItem
 from Arbitro import Arbitro
 
 class Batalla:
-    TAMANIO_DE_EQUIPO = 3
     
     def __init__(self, jugadorUno: Entrenador, jugadorDos: Entrenador):
         self._jugadas = []

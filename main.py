@@ -1,26 +1,26 @@
 from GeneradorDeEquipos import GeneradorDeEquipos
 from Entrenador import Entrenador
 from Batalla import Batalla
-from Jugada import Jugada
 
 generadorDeEquipos = GeneradorDeEquipos()
-equipoJugadorUno = generadorDeEquipos.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
-equipoJugadorDos = generadorDeEquipos.obtenerEquipoPokemon(Batalla.TAMANIO_DE_EQUIPO)
+
+equipoJugadorUno = generadorDeEquipos.obtenerEquipoPokemonAleatorio(3)
+equipoJugadorDos = generadorDeEquipos.obtenerEquipoPokemonAleatorio(3)
 
 jugadorUno = Entrenador('elKevin96', equipoJugadorUno)
 jugadorDos = Entrenador('Ash', equipoJugadorDos)
-batalla = Batalla(jugadorUno, jugadorDos) 
+batalla = Batalla(jugadorUno, jugadorDos)
 
-administradorDeInterfazDeBatalla = batalla._administradorDeInterfazDeBatalla 
+administradorDeInterfazDeBatalla = batalla._administradorDeInterfazDeBatalla
 eleccionDeJugada = administradorDeInterfazDeBatalla.ofrecerEleccionDeJugada()
 
-jugadaDeJugadorUno: Jugada = batalla.obtenerJugada(batalla._jugadorUno, eleccionDeJugada)
+jugadaDeJugadorUno = batalla.obtenerJugada(batalla._jugadorUno, eleccionDeJugada)
 
-batalla.stashearJugada(jugadaDeJugadorUno) 
+batalla.stashearJugada(jugadaDeJugadorUno)
 
 eleccionDeJugada = administradorDeInterfazDeBatalla.ofrecerEleccionDeJugada()
 
-jugadaDeJugadorDos: Jugada = batalla.obtenerJugada(batalla._jugadorDos, eleccionDeJugada)
+jugadaDeJugadorDos = batalla.obtenerJugada(batalla._jugadorDos, eleccionDeJugada)
 
 batalla.stashearJugada(jugadaDeJugadorDos)
 
