@@ -13,7 +13,8 @@ class GeneradorDeEquipos:
         self.administradorDeBaseDeDatos = administradorDeBaseDeDatos
 
 
-    def obtenerEquipoPokemonAleatorio(self, tamanoDeEquipo: int) -> list[Pokemon]:
+
+    def obtenerEquipoPokemon(self, tamanoDeEquipo: int) -> list[Pokemon]:
         idsTablaPokemon = self.administradorDeBaseDeDatos.obtenerTodosLosIdsDeTabla('pokemons') #contempla si la db tuvo registros truncados
         idsPokemons = GeneradorDeValoresAlAzar.obtenerMuestra(idsTablaPokemon, tamanoDeEquipo)
         equipo = []

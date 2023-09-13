@@ -3,6 +3,7 @@ from Entrenador import Entrenador
 from Batalla import Batalla
 
 generadorDeEquipos = GeneradorDeEquipos()
+
 equipoJugadorUno = generadorDeEquipos.obtenerEquipoPokemonAleatorio(3)
 equipoJugadorDos = generadorDeEquipos.obtenerEquipoPokemonAleatorio(3)
 
